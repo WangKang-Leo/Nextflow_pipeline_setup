@@ -1,7 +1,16 @@
 #########################################
 #################rnafusion###############
 #########################################
-cd /proj/snic2021-23-324/nobackup/private/BEVPAC_WES/Nextflow
+cd /proj/snic2021-23-324/nobackup/private/Nextflow
 module load bioinfo-tools Nextflow/21.04.1 nf-core/1.14 iGenomes/latest
 nf-core download rnafusion -r 1.2.0 -c -p 10 --compress none --singularity-cache-only
-#$NXF_SINGULARITY_CACHEDIR.  Select "No"
+###$NXF_SINGULARITY_CACHEDIR.  Select "No"####
+
+####Download rnafusion####
+export NXF_SINGULARITY_CACHEDIR="/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0/singularity-images"
+nextflow run nf-core/rnafusion/download-references.nf \
+  -profile singularity \
+  --download_all \
+  --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0/reference" \
+  --cosmic_usr kangwang --cosmic_passwd wk710652866 \
+  -resume
