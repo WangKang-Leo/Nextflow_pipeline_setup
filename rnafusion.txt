@@ -2,22 +2,29 @@
 #################rnafusion###############
 #########################################
 cd /proj/snic2021-23-324/nobackup/private/Nextflow
-module load bioinfo-tools Nextflow/21.04.1 nf-core/2.4.1 iGenomes/latest
+module load bioinfo-tools Nextflow/21.10.6 nf-core iGenomes/latest
+#https://nf-co.re/tools/#downloading-pipelines-for-offline-use
+nf-core download
+rnafusion
+2.0.0
+###$NXF_SINGULARITY_CACHEDIR.  Select "No"####
+####Download rnafusion####
+export NXF_SINGULARITY_CACHEDIR="/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-2.0.0/singularity-images"
+nextflow run nf-core/rnafusion/download-references.nf \
+  -profile singularity \
+  --download_all \
+  --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-2.0.0/reference" \
+  --cosmic_usr kangwang --cosmic_passwd wk710652866 \
+  -resume
+
+nextflow run nf-core/rnafusion \
+--build_references --all
+--build_references --all \
+--genomes_base "/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-2.0.0/reference"
+
+
+nextflow run nf-core/rnafusion -profile test,uppmax --project snic2022-22-548 --outdir .
+
+
 nf-core download rnafusion -r 2.0.0 -c -p 10 --compress none --singularity-cache-only
 ###$NXF_SINGULARITY_CACHEDIR.  Select "No"####
-
-####Download rnafusion####
-export NXF_SINGULARITY_CACHEDIR="/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0/singularity-images"
-nextflow run nf-core/rnafusion/download-references.nf \
-  -profile singularity \
-  --download_all \
-  --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0/reference" \
-  --cosmic_usr kangwang --cosmic_passwd wk710652866 \
-  -resume
-
-nextflow run nf-core/rnafusion/download-references.nf \
-  -profile singularity \
-  --download_all \
-  --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0/reference" \
-  --cosmic_usr kangwang --cosmic_passwd wk710652866 \
-  -resume
