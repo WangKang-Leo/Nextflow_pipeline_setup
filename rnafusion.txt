@@ -12,7 +12,7 @@ rnafusion
 export NXF_SINGULARITY_CACHEDIR="/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-2.0.0/singularity-images"
 nextflow run nf-core/rnafusion/download-references.nf \
   -profile singularity \
-  --download_all \
+  --arriba \
   --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-2.0.0/reference" \
   --cosmic_usr kangwang --cosmic_passwd wk710652866 \
   -resume
@@ -25,6 +25,14 @@ nextflow run nf-core/rnafusion \
 
 nextflow run nf-core/rnafusion -profile test,uppmax --project snic2022-22-548 --outdir .
 
+export NXF_SINGULARITY_CACHEDIR="/proj/snic2021-23-324/nobackup/private/nf-core/nf-core-rnafusion-2.0.0/singularity-images"
+nextflow run /proj/snic2021-23-324/nobackup/private/nf-core/nf-core-rnafusion-2.0.0/workflow/workflows/build_references.nf \
+  --build_references --all \
+  --genomes_base "/proj/snic2021-23-324/nobackup/private/nf-core/nf-core-rnafusion-2.0.0/reference"
+  
+nextflow run nf-core/rnafusion/download-references.nf \
+--build_references --all \
+--genomes_base "/proj/snic2021-23-324/nobackup/private/nf-core/nf-core-rnafusion-2.0.0/reference" \
 
 nf-core download rnafusion -r 2.0.0 -c -p 10 --compress none --singularity-cache-only
 ###$NXF_SINGULARITY_CACHEDIR.  Select "No"####
