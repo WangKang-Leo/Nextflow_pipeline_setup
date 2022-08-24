@@ -36,3 +36,24 @@ nextflow run nf-core/rnafusion/download-references.nf \
 
 nf-core download rnafusion -r 2.0.0 -c -p 10 --compress none --singularity-cache-only
 ###$NXF_SINGULARITY_CACHEDIR.  Select "No"####
+
+
+nextflow run nf-core/rnafusion \
+  --build_references --<tool1> --<tool2> ... \
+  --cosmic_username <EMAIL> --cosmic_passwd <PASSWORD> \
+  --genomes_base <PATH/TO/REFERENCES> \
+  --outdir <OUTPUT/PATH>
+
+##############rnafusion 1.2################
+cd /proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0
+nextflow run workflow/download-references.nf --help
+
+module load bioinfo-tools nf-core-pipelines
+nextflow run $NF_CORE_PIPELINES/rnafusion/2.1.0/workflow -profile uppmax \
+  --build_references --all \
+  --cosmic_username kang.wang@ki.se --cosmic_passwd Neverki822! \
+  --genomes_base "/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references" \
+  --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references"
+  
+nextflow run nf-core/rnafusion/download-references.nf --help
+  
