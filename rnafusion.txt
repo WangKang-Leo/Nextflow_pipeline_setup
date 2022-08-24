@@ -44,16 +44,27 @@ nextflow run nf-core/rnafusion \
   --genomes_base <PATH/TO/REFERENCES> \
   --outdir <OUTPUT/PATH>
 
-##############rnafusion 1.2################
+##############nf-core-pipelines################
 cd /proj/snic2021-23-324/nobackup/private/Nextflow/nf-core-rnafusion-1.2.0
 nextflow run workflow/download-references.nf --help
 
 module load bioinfo-tools nf-core-pipelines
+nextflow run $NF_CORE_PIPELINES/rnafusion/2.1.0/workflow -profile uppmax \ 
+  --project snic2022-22-548 \
+  --build_references --all \
+  --cosmic_username kang.wang@ki.se --cosmic_passwd Neverki822! \
+  --genomes_base "/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references" \
+  --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references"
+
+module load bioinfo-tools nf-core-pipelines Nextflow/21.04.1 iGenomes/latest
+export NXF_SINGULARITY_CACHEDIR="/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references/"
 nextflow run $NF_CORE_PIPELINES/rnafusion/2.1.0/workflow -profile uppmax \
+  --project snic2022-22-548 \
   --build_references --all \
   --cosmic_username kang.wang@ki.se --cosmic_passwd Neverki822! \
   --genomes_base "/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references" \
   --outdir "/proj/snic2021-23-324/nobackup/private/Nextflow/rnafusion/references"
   
-nextflow run nf-core/rnafusion/download-references.nf --help
+#####Manually download#####
+####https://github.com/nf-core/rnafusion/tree/master/modules/local
   
